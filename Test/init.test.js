@@ -40,6 +40,6 @@ it('should throws an error when passing array of more than two items arrays as o
         .toThrow(Error);
 });
 
-it('should ', function () {
+it('should update the direction', function () {
     expect(setDirection()).toBe(undefined);
 });
