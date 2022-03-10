@@ -5,7 +5,7 @@
 */
 
 import {computeCommand} from "../computeCommand.js";
-import {initializeRover} from "../init.js";
+
 let position = [2,3];
 let direction = "N";
 let destination = [2,3]
