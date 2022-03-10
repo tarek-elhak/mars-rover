@@ -1,10 +1,11 @@
 import {validateDestination, validateDirection, validatePosition} from "./Validation.js";
 
-let command = "";
 
-
-export function computeCommand(position,direction,destination)
+export function computeCommand(startPosition,direction,destination)
 {
+    let command = "";
+    let position = startPosition.slice(0);
+
     // validate the position
     validatePosition(position);
     // validate the direction
@@ -13,7 +14,7 @@ export function computeCommand(position,direction,destination)
     validateDestination(destination);
 
     // check if the initial position is also the desired destination or not
-    let reached = checkDestinationReached(position,destination);
+    let reached = checkDestinationReached(position,destination,command);
     if (reached){
         return reached;
     }else{
@@ -30,13 +31,13 @@ export function computeCommand(position,direction,destination)
                             // move the rover
                             position[1] -=1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }else{
                         for(let i = 0 ; i < difference ; i++){
                             command = command.concat("B");
                             position[1] -=1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }
                 }else if (position[1] < destination[1]){
                     // the destination point above the current point
@@ -47,13 +48,13 @@ export function computeCommand(position,direction,destination)
                             command = command.concat("F");
                             position[1] += 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }else{
                         for(let i = 0 ; i < difference ; i++){
                             command = command.concat("B");
                             position[1] += 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }
                 }else{
                     // rover needs to turn and then move forward|backward until reach the destination point
@@ -71,7 +72,7 @@ export function computeCommand(position,direction,destination)
                             command = command.concat("F");
                             position[0] -= 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }else {
                         if (direction === 'N'){
                             // turn right
@@ -86,7 +87,7 @@ export function computeCommand(position,direction,destination)
                             command = command.concat("F");
                             position[0] += 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }
                 }
             }
@@ -104,13 +105,13 @@ export function computeCommand(position,direction,destination)
                             // move the rover
                             position[0] -=1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }else{
                         for(let i = 0 ; i < difference ; i++){
                             command = command.concat("B");
                             position[0] -=1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }
                 }else if (position[0] < destination[0]){
                     // the destination point at the right of the current point
@@ -121,13 +122,13 @@ export function computeCommand(position,direction,destination)
                             command = command.concat("F");
                             position[0] += 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }else{
                         for(let i = 0 ; i < difference ; i++){
                             command = command.concat("B");
                             position[0] += 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }
                 }else{
                     // rover needs to turn and then move forward|backward until reach the destination point
@@ -146,7 +147,7 @@ export function computeCommand(position,direction,destination)
                             command = command.concat("F");
                             position[1] -= 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }else {
                         // it's up me
                         if (direction === 'E'){
@@ -162,7 +163,7 @@ export function computeCommand(position,direction,destination)
                             command = command.concat("F");
                             position[1] += 1;
                         }
-                        reached = checkDestinationReached(position,destination);
+                        reached = checkDestinationReached(position,destination,command);
                     }
                 }
             }
@@ -173,7 +174,7 @@ export function computeCommand(position,direction,destination)
 }
 
 // helper function to test if the destination reached or not
-function checkDestinationReached(position,destination)
+function checkDestinationReached(position,destination,command)
 {
     if (position[0] === destination[0] && position[1] === destination[1]){
         return command === "" ? "Rover Reached the destination without Moving !" :
