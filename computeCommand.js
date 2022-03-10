@@ -1,8 +1,17 @@
+import {validateDestination, validateDirection, validatePosition} from "./Validation.js";
+
 let command = "";
 
 
 export function computeCommand(position,direction,destination)
 {
+    // validate the position
+    validatePosition(position);
+    // validate the direction
+    validateDirection(direction);
+    // validate the destination
+    validateDestination(destination);
+
     // check if the initial position is also the desired destination or not
     let reached = checkDestinationReached(position,destination);
     if (reached){
