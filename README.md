@@ -20,6 +20,6 @@ the planet.
 4. start set you values to try with it
 5. run the module using node main.js
 
-**Note**: the application is provided with tests file that unit test almost every possible test case  
+**Note**: the application is provided with test files that unit tests almost every possible test case,
 that's developed using Jest, so you can test any test case from the _Test_ directory. 
 
