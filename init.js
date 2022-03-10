@@ -1,3 +1,7 @@
+import {validatePosition} from "./Validation.js";
+import {validateDestination} from "./Validation.js";
+import {validateDirection} from "./Validation.js";
+import {validateObstacles} from "./Validation.js";
 export let currentPosition = [];
 export let currentDirection = '' ;
 export let marsObstacles = [];
@@ -7,42 +11,13 @@ export function initializeRover(xCoordinate = 0, yCoordinate = 0,
                                 direction = 'N', obstacles = [],destination= [0,0])
 {
     // validate the given Coordinates
-    if (!Number.isInteger(xCoordinate) || !Number.isInteger(yCoordinate)){
-        throw new Error("Invalid Coordinates, Coordinates should be numbers");
-    }
+    validatePosition([xCoordinate,yCoordinate]);
     // validate the given heading
-    if (direction !== 'N' && direction !== 'E' && direction !== 'S' && direction !== 'W'){
-        throw new Error("the Direction should be one of these value " +
-            "'N: for North', 'E: for East', 'S: for South', 'W: for West'");
-    }
+   validateDirection(direction);
     // validate the given obstacles
-    if (Array.isArray(obstacles)){
-        for (let obstacle of obstacles){
-            if (Array.isArray(obstacle) && obstacle.length === 2){
-                for (let coordinate of obstacle){
-                    if (!Number.isInteger(coordinate)){
-                        throw new Error("a coordinate should be number")
-                    }
-                }
-            }else{
-                throw new Error("an obstacle should be array of two coordinates")
-            }
-        }
-    }else{
-        throw new Error("Obstacles must be Array");
-    }
+    validateObstacles(obstacles);
     // validate the destination
-
-    if (!
-        (
-            Array.isArray(destination) && destination.length === 2
-            && Number.isInteger(destination[0]) && Number.isInteger(destination[1])
-        )
-    )
-    {
-        throw new Error("destination must be an array of two numerical coordinates ")
-    }
-
+    validateDestination(destination);
     // initialise the currentPosition
     currentPosition[0] = xCoordinate;
     currentPosition[1] = yCoordinate;
