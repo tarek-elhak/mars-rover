@@ -5,9 +5,26 @@
 */
 
 import {computeCommand} from "../computeCommand.js";
+import {initializeRover} from "../init.js";
 let position = [2,3];
 let direction = "N";
 let destination = [2,3]
+
+it('should throws an error when passing non array as destination', () => {
+    expect(()=>computeCommand([],'N',"test"))
+        .toThrow(Error);
+});
+
+it('should throws an error when passing array of non integers as destination', () => {
+    expect(()=>computeCommand([],'N',["2",3]))
+        .toThrow(Error);
+});
+
+it('should throws an error when passing array of more than two items as destination', () => {
+    expect(()=>computeCommand([],'N',[1,2,3]))
+        .toThrow(Error);
+});
+
 
 test("rover reports that he get to the goal without any moving if it's initialized position is actually " +
     "the desired destination for it", ()=>{

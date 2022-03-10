@@ -40,21 +40,6 @@ it('should throws an error when passing array of more than two items arrays as o
         .toThrow(Error);
 });
 
-it('should throws an error when passing non array as destination', () => {
-    expect(()=>initializeRover(0,0,'N',[[1,2]],"test"))
-        .toThrow(Error);
-});
-
-it('should throws an error when passing array of non integers as destination', () => {
-    expect(()=>initializeRover(0,0,'N',[[1,2]],["2",3]))
-        .toThrow(Error);
-});
-
-it('should throws an error when passing array of more than two items as destination', () => {
-    expect(()=>initializeRover(0,0,'N',[[1,2]],[1,2,3]))
-        .toThrow(Error);
-});
-
 it('should ', function () {
     expect(setDirection()).toBe(undefined);
 });
